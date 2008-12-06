@@ -59,6 +59,33 @@ sub new {
     return $self;
 }
 
+=head2 new(%options)
+
+Creates the hyphenator object.
+
+You can pass several options:
+
+=over
+
+=item min_word
+
+Minimum length of word to be hyphenated. Shorter words are returned
+right away. Defaults to 5 for English.
+
+=item min_prefix
+
+Minimal prefix to leave without any hyphens. Defaults to 2 for
+English.
+
+=item min_suffix
+
+Minimal suffix to leave wothout any hyphens. Defaults to 2 for
+English.
+
+=back
+
+=cut
+
 sub _add_pattern {
     my ($self, $pattern) = @_;
     # Convert the a pattern like 'a1bc3d4' into a string of chars 'abcd'
