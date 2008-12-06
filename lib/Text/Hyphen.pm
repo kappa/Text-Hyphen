@@ -456,7 +456,7 @@ ret-ri-bu-tion ta-ble
 =head2 hyphenate($word, [$delim])
 
 Hyphenates the C<$word> by inserting C<$delim> into hyphen positions.
-C<$delim> defaults to dash (Q<->).
+C<$delim> defaults to dash ("-").
 
 =cut
 
