@@ -4,7 +4,6 @@ use warnings;
 use strict;
 
 use 5.006;
-use List::Util qw/max/;
 
 =head1 NAME
 
@@ -17,7 +16,6 @@ Version 0.01
 =cut
 
 our $VERSION = '0.1';
-
 
 =head1 SYNOPSIS
 
@@ -483,7 +481,9 @@ sub hyphenate {
                 $t = $t->{$c};
                 if (my $p = $t->{_}) {
                     for my $j (0 .. $#$p) {
-                        $points->[$i + $j] = max($points->[$i + $j], $p->[$j]);
+                        #$points->[$i + $j] = max($points->[$i + $j], $p->[$j]);
+                        $points->[$i + $j] < $p->[$j]
+                            and $points->[$i + $j] = $p->[$j];
                     }
                 }
             }
@@ -514,8 +514,6 @@ Alex Kapranoff, C<< <kappa at cpan.org> >>
 Please report any bugs or feature requests to C<bug-text-hyphen at rt.cpan.org>, or through
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Text-Hyphen>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
-
-
 
 
 =head1 SUPPORT
