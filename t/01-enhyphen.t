@@ -14,8 +14,6 @@ sub is_hyph ($$) {
     is($result, $expected, qq{hyphenated "$word"});
 }
 
-#$hyp->_load_hyphen_tex(\@TeX::Hyphen::Russian::HYPHEN);
-
 is_hyph 'representation', 'rep-re-sen-ta-tion';
 is_hyph 'presents', 'presents';
 is_hyph 'declination', 'dec-li-na-tion';
