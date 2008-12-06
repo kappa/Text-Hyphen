@@ -1,16 +1,21 @@
 Text-Hyphen
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
+Text::Hyphen module is the implementation of the famous Knuth-Liang
+algorithm to hyphenate words in text. That means using this module you
+can determine positions inside words where it is possible to insert
+a hyphen to break a line of text.
 
-A README file is required for CPAN modules since CPAN extracts the README
-file from a module distribution so that people browsing the archive
-can use it to get an idea of the module's uses. It is usually a good idea
-to provide version information here so that people can decide whether
-fixes for the module are worth downloading.
+The algorithm is thoroughly documented in Franklin Mark Liang's Ph.D. thesis
+available on CTAN (e.g. http://www.tug.org/docs/liang/liang-thesis.pdf) and is used
+in TeX. The interesting property of this algorithm is that it isn't
+based on a set of rules but instead uses a sophisticatedly compressed dictionary of patterns.
+The original Knuth patterns for English are in public domain and
+included with this implementation.
 
+The Text::Hyphen distribution does not have any dependencies and will
+probably work on old perls. (XXX rephrase after cpantesters reports)
+
+This is 0.1 version.
 
 INSTALLATION
 
@@ -48,4 +53,3 @@ COPYRIGHT AND LICENCE
 Copyright (C) 2008 Alex Kapranoff
 
 This program is released under the following license: bsd
-

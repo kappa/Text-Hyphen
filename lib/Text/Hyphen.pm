@@ -7,11 +7,11 @@ use 5.006;
 
 =head1 NAME
 
-Text::Hyphen - The great new Text::Hyphen!
+Text::Hyphen - determine positions for hyphens inside words
 
 =head1 VERSION
 
-Version 0.01
+Version 0.1
 
 =cut
 
@@ -19,19 +19,22 @@ our $VERSION = '0.1';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
+This module implements Knuth-Liang algorithm to find positions inside
+words where it is possible to insert hyphens to break a line.
 
     use Text::Hyphen;
 
-    my $foo = new Text::Hyphen;
-    ...
+    my $hyphenator = new Text::Hyphen;
+
+    print $hyphenator->hyphenate('representation');
+    # prints rep-re-sen-ta-tion
 
 =head1 EXPORT
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+This version does not export anything and uses OOP interface. This
+will probably change.
+
+XXX employ a singleton to provide functional interface
 
 =head1 FUNCTIONS
 
@@ -515,13 +518,11 @@ Please report any bugs or feature requests to C<bug-text-hyphen at rt.cpan.org>,
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Text-Hyphen>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
 
-
 =head1 SUPPORT
 
 You can find documentation for this module with the perldoc command.
 
     perldoc Text::Hyphen
-
 
 You can also look for information at:
 
@@ -548,16 +549,23 @@ L<http://search.cpan.org/dist/Text-Hyphen>
 
 =head1 ACKNOWLEDGEMENTS
 
-Donald Knuth, Frank Liang, Alexander Lebedev, MJD & Jan XXX.
-Ned Batchelder
-http://nedbatchelder.com/code/modules/hyphenate.html
+Donald Knuth and Frank Liang for the algorithm.
+
+Alexander Lebedev for all his valuable work on russian ispell
+dictionaries and russian hyphenation patterns. See his archive
+at L<ftp://scon155.phys.msu.ru/pub/russian/>.
+
+Mark-Jason Dominus and Jan Pazdziora for L<Text::Hyphenate> and L<TeX::Hyphenate>
+modules on CPAN both of which are hopefully obsoleted by Text::Hyphen :)
+
+Ned Batchelder for his public domain Python implementation of
+Knuth-Liang algorithm available at L<http://nedbatchelder.com/code/modules/hyphenate.html>.
 
 =head1 COPYRIGHT & LICENSE
 
 Copyright 2008 Alex Kapranoff.
 
-This program is released under the following license: bsd.
-
+This program is released under the following license: BSD.
 
 =cut
 

@@ -1,5 +1,7 @@
 Revision history for Text-Hyphen
 
-0.01    Date/time
-        First version, released on an unsuspecting world.
+0.1    Sat Dec  6 04:01:51 MSK 2008
+        First version, released on an unsuspecting world. Does
+        hyphenation for English. Is much faster than all analogs on
+        CPAN.
 
