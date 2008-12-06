@@ -1,6 +1,5 @@
 Changes
 lib/Text/Hyphen.pm
-Makefile
 Makefile.PL
 MANIFEST
 META.yml
