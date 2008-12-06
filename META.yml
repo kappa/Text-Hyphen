@@ -1,9 +1,8 @@
 ---
-abstract: 'The great new Text::Hyphen!'
+abstract: 'determine positions for hyphens inside words'
 author:
   - 'Alex Kapranoff, C<< <kappa at cpan.org> >>'
 build_requires:
-  Test::Deep: 0
   Test::More: 0
 distribution_type: module
 generated_by: 'Module::Install version 0.75'
@@ -17,6 +16,5 @@ no_index:
     - inc
     - t
 requires:
-  List::Util: 0
   perl: 5.6.0
 version: 0.1
