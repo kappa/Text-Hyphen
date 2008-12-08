@@ -1,5 +1,4 @@
 ^\.hg
 MANIFEST\.SKIP
 \.sw.$
-^inc
 ^Makefile$
