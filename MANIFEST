@@ -8,8 +8,6 @@ inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/Text/Hyphen.pm
-lib/Text/Hyphen/RU.pm
-lib/Text/Hyphen/Russian.pm
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
