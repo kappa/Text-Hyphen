@@ -13,9 +13,9 @@ The original Knuth patterns for English are in public domain and
 included with this implementation.
 
 The Text::Hyphen distribution does not have any dependencies and will
-probably work on old perls. (XXX rephrase after cpantesters reports)
+probably work on old perls.
 
-This is 0.1 version.
+This is 0.11 version.
 
 INSTALLATION
 
