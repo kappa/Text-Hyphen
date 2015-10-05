@@ -9,13 +9,9 @@ use 5.006;
 
 Text::Hyphen - determine positions for hyphens inside words
 
-=head1 VERSION
-
-Version 0.1
-
 =cut
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 =head1 SYNOPSIS
 
@@ -31,10 +27,7 @@ words where it is possible to insert hyphens to break a line.
 
 =head1 EXPORT
 
-This version does not export anything and uses OOP interface. This
-will probably change.
-
-XXX employ a singleton to provide functional interface
+This version does not export anything and uses OOP interface.
 
 =head1 FUNCTIONS
 
@@ -590,9 +583,10 @@ Knuth-Liang algorithm available at L<http://nedbatchelder.com/code/modules/hyphe
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2008 Alex Kapranoff.
+Copyright 2008-2015 Alex Kapranoff.
 
-This program is released under the following license: BSD.
+This is free software; you can redistribute it and/or modify it under
+the terms GNU General Public License version 3.
 
 =cut
 
