@@ -4,7 +4,7 @@
       "Alex Kapranoff, C<< <kappa at cpan.org> >>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v2.5.0, CPAN::Meta::Converter version 2.142690",
+   "generated_by" : "Minilla/v2.5.0, CPAN::Meta::Converter version 2.150005",
    "license" : [
       "gpl_3"
    ],
@@ -64,9 +64,10 @@
          "web" : "https://github.com/kappa/Text-Hyphen"
       }
    },
-   "version" : "0.12",
+   "version" : "0.2",
    "x_contributors" : [
       "Alex Kapranoff <kappa@rambler-co.ru>",
       "Alex Kapranoff <alex@kapranoff.ru>"
-   ]
+   ],
+   "x_serialization_backend" : "JSON::PP version 2.27203"
 }

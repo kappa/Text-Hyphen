@@ -7,12 +7,19 @@ Text::Hyphen - determine positions for hyphens inside words
 This module implements Knuth-Liang algorithm to find positions inside
 words where it is possible to insert hyphens to break a line.
 
+The original Knuth patterns for English language are built-in.
+If you need to hyphenate other languages, please see Text::Hyphen::\*
+modules on CPAN.
+
     use Text::Hyphen;
 
     my $hyphenator = new Text::Hyphen;
 
-    print $hyphenator->hyphenate('representation');
+    print $hyp->hyphenate('representation', '-');
     # prints rep-re-sen-ta-tion
+
+    print map "($_)", $hyp->hyphenate('multiple');
+    # prints "(mul)(ti)(ple)"
 
 # EXPORT
 
@@ -43,30 +50,29 @@ You can pass several options:
 
 ## hyphenate($word, \[$delim\])
 
-Hyphenates the `$word` by inserting `$delim` into hyphen positions.
-`$delim` defaults to dash ("-").
+Hyphenates the `$word`.
+
+If $delim is undefined then in list context this method will break the word
+into pieces on hyphenation positions and return the list of the pieces.
+In scalar context it will return the $word with "-" inserted into suggested
+hyphenation positions.
+
+If $delim is defined this methods returns the $word with $delim inserted
+into hyphenation positions.
+
+Basically, it tries to DWIM.
 
 # AUTHOR
 
 Alex Kapranoff, `<kappa at cpan.org>`
 
-# BUGS
+# BUGS AND SUPPORT
 
-Please report any bugs or feature requests to `bug-text-hyphen at rt.cpan.org`, or through
-the web interface at [http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Text-Hyphen](http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Text-Hyphen).  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
+This code is hoste don Github, please see [https://github.com/kappa/Text-Hyphen](https://github.com/kappa/Text-Hyphen).
 
-# SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc Text::Hyphen
+Please report any bugs or feature requests to GitHub issues.
 
 You can also look for information at:
-
-- RT: CPAN's request tracker
-
-    [http://rt.cpan.org/NoAuth/Bugs.html?Dist=Text-Hyphen](http://rt.cpan.org/NoAuth/Bugs.html?Dist=Text-Hyphen)
 
 - AnnoCPAN: Annotated CPAN documentation
 
@@ -89,7 +95,7 @@ dictionaries and russian hyphenation patterns. See his archive
 at [ftp://scon155.phys.msu.ru/pub/russian/](ftp://scon155.phys.msu.ru/pub/russian/).
 
 Mark-Jason Dominus and Jan Pazdziora for [Text::Hyphenate](https://metacpan.org/pod/Text::Hyphenate) and [TeX::Hyphenate](https://metacpan.org/pod/TeX::Hyphenate)
-modules on CPAN both of which are hopefully obsoleted by Text::Hyphen :)
+modules on CPAN.
 
 Ned Batchelder for his public domain Python implementation of
 Knuth-Liang algorithm available at [http://nedbatchelder.com/code/modules/hyphenate.html](http://nedbatchelder.com/code/modules/hyphenate.html).
