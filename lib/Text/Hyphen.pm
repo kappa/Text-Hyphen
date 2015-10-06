@@ -11,19 +11,26 @@ Text::Hyphen - determine positions for hyphens inside words
 
 =cut
 
-our $VERSION = '0.12';
+our $VERSION = '0.2';
 
 =head1 SYNOPSIS
 
 This module implements Knuth-Liang algorithm to find positions inside
 words where it is possible to insert hyphens to break a line.
 
+The original Knuth patterns for English language are built-in.
+If you need to hyphenate other languages, please see Text::Hyphen::*
+modules on CPAN.
+
     use Text::Hyphen;
 
     my $hyphenator = new Text::Hyphen;
 
-    print $hyphenator->hyphenate('representation');
+    print $hyp->hyphenate('representation', '-');
     # prints rep-re-sen-ta-tion
+
+    print map "($_)", $hyp->hyphenate('multiple');
+    # prints "(mul)(ti)(ple)"
 
 =head1 EXPORT
 
@@ -475,14 +482,22 @@ ret-ri-bu-tion ta-ble
 
 =head2 hyphenate($word, [$delim])
 
-Hyphenates the C<$word> by inserting C<$delim> into hyphen positions.
-C<$delim> defaults to dash ("-").
+Hyphenates the C<$word>.
+
+If $delim is undefined then in list context this method will break the word
+into pieces on hyphenation positions and return the list of the pieces.
+In scalar context it will return the $word with "-" inserted into suggested
+hyphenation positions.
+
+If $delim is defined this methods returns the $word with $delim inserted
+into hyphenation positions.
+
+Basically, it tries to DWIM.
 
 =cut
 
 sub hyphenate {
     my ($self, $word, $delim) = @_;
-    $delim ||= '-';
 
     # Short words aren't hyphenated.
     length($word) < $self->{min_word}
@@ -525,32 +540,27 @@ sub hyphenate {
             and push @pieces, '';
     }
 
-    return wantarray ? @pieces : join($delim, @pieces);
+    if (defined($delim)) {
+        return join($delim, @pieces);
+    }
+    else {
+        return wantarray ? @pieces : join('-', @pieces);
+    }
 }
 
 =head1 AUTHOR
 
 Alex Kapranoff, C<< <kappa at cpan.org> >>
 
-=head1 BUGS
+=head1 BUGS AND SUPPORT
 
-Please report any bugs or feature requests to C<bug-text-hyphen at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Text-Hyphen>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
+This code is hoste don Github, please see L<https://github.com/kappa/Text-Hyphen>.
 
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc Text::Hyphen
+Please report any bugs or feature requests to GitHub issues.
 
 You can also look for information at:
 
 =over 4
-
-=item * RT: CPAN's request tracker
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Text-Hyphen>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
@@ -566,7 +576,6 @@ L<http://search.cpan.org/dist/Text-Hyphen>
 
 =back
 
-
 =head1 ACKNOWLEDGEMENTS
 
 Donald Knuth and Frank Liang for the algorithm.
@@ -576,7 +585,7 @@ dictionaries and russian hyphenation patterns. See his archive
 at L<ftp://scon155.phys.msu.ru/pub/russian/>.
 
 Mark-Jason Dominus and Jan Pazdziora for L<Text::Hyphenate> and L<TeX::Hyphenate>
-modules on CPAN both of which are hopefully obsoleted by Text::Hyphen :)
+modules on CPAN.
 
 Ned Batchelder for his public domain Python implementation of
 Knuth-Liang algorithm available at L<http://nedbatchelder.com/code/modules/hyphenate.html>.
@@ -590,4 +599,4 @@ the terms GNU General Public License version 3.
 
 =cut
 
-1; # End of Text::Hyphen
+1;

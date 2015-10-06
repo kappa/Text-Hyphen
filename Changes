@@ -1,6 +1,12 @@
 Revision history for Text-Hyphen
 
 {{$NEXT}}
+		- Incompatible interface change: in list context with defined
+		  delimiter hyphenate() method now works as if the context is
+		  scalar.
+		  This usage didn't make sense previously, delimiter was
+		  ignored, so hopefully nothing breaks.
+		- Also, fix cases with falsy but defined delimiter.
 
 0.12 2015-10-05T22:00:35Z
 		- Conversion to Minilla
