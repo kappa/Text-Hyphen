@@ -5,6 +5,8 @@ use strict;
 
 use 5.006;
 
+use Carp qw(croak);
+
 =head1 NAME
 
 Text::Hyphen - determine positions for hyphens inside words
@@ -82,6 +84,34 @@ English.
 Minimal suffix to leave wothout any hyphens. Defaults to 2 for
 English.
 
+=item load_patterns, load_exceptions
+
+The name of a file containing hyphenation patterns or exceptions
+respectively, or an array reference with patterns or exceptions
+respectively, or C<undef> to explicitly not load any exceptions
+or to explicitly use the defaults. If these options were missing
+in the call to the constructor the builtin defaults (Knuth's data
+for US English) are loaded.
+
+A file should contain nothing but whitespace-separated patterns
+or exceptions. Suitable files can be found at
+L<http://mirror.ctan.org/language/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/>
+Those files contain UTF-8 hyphenation data for many languages,
+converted to UTF-8 by the people who maintain hyphenation files
+for TeX. The patterns are in the files ending in F<.pat.txt> and
+the exceptions are in the files ending in F<.hyp.txt>. This
+distribution contains a file F<hyphenmin.csv> which contains
+mappings from the language codes in the file names to the long
+TeX names of the languages, and recommended C<min_prefix> and
+C<min_suffix> values derived from data found at CTAN. Note that
+this module has I<not> been tested with all those data.
+
+=item binmode
+
+A suitable second argument to L<binmode|binmode/"FILEHANDLE, LAYER">,
+used when reading files specified with C<load_patterns>
+or C<load_exceptions>. Defaults to C<:encoding(UTF-8)>.
+
 =back
 
 =cut
@@ -107,15 +137,42 @@ sub _add_pattern {
 sub _load_patterns {
     my $self = shift;
 
-    $self->_add_pattern($_) foreach @{$self->_PATTERNS};
+    my ( $patterns, $exceptions ) = qw(patterns exceptions);
+    for my $data ( $patterns, $exceptions ) {
+        my $key     = "load_$data";
+        my $builtin = uc "_$data";
+        $data
+          = exists( $self->{$key} ) ? $self->_load_data( $self->{$key} )
+          : $self->{load_patterns}  ? []
+          :                           $self->$builtin;
+    }
 
-    foreach my $ex (@{$self->_EXCEPTIONS}) {
+    $self->_add_pattern($_) foreach @{$patterns};
+
+    foreach my $ex (@{$exceptions}) {
         (my $word = $ex) =~ tr/-//d;
         # wo-rd-le => { wordle => [0, 0, 1, 0, 1, 0, 0] }
         # ||a||a||
         #__ a _ a __
         $self->{exceptions}->{$word} = [ 0, map { $_ eq '-' ? 1 : 0 } split /[^-]/, $ex, -1];   # -1 == do not omit trailing undefs
     }
+}
+
+sub _load_data {
+    my($self, $arg) = @_;
+    return $arg if 'ARRAY' eq ref $arg;
+    return [] unless defined $arg;
+    croak "No such file or not a file: $arg"
+        unless !-d $arg and -f $arg;
+    local *FH;
+    open FH, '<', $arg or croak "Couldn't open file ($!): $arg";
+    my $binmode = exists($self->{binmode}) ? $self->{binmode} : ':encoding(UTF-8)';
+    binmode FH, $binmode if $binmode;
+    my @items = map { grep { length $_ } split /\s+/, $_ } <FH>;
+    close FH or croak "Couldn't close file ($!): $arg";
+    # use DDP;
+    # pp @items;
+    return \@items;
 }
 
 sub _PATTERNS {
