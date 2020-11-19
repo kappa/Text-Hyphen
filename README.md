@@ -15,10 +15,10 @@ modules on CPAN.
 
     my $hyphenator = new Text::Hyphen;
 
-    print $hyp->hyphenate('representation', '-');
+    print $hyphenator->hyphenate('representation', '-');
     # prints rep-re-sen-ta-tion
 
-    print map "($_)", $hyp->hyphenate('multiple');
+    print map "($_)", $hyphenator->hyphenate('multiple');
     # prints "(mul)(ti)(ple)"
 
 # EXPORT
@@ -68,7 +68,7 @@ Alex Kapranoff, `<kappa at cpan.org>`
 
 # BUGS AND SUPPORT
 
-This code is hoste don Github, please see [https://github.com/kappa/Text-Hyphen](https://github.com/kappa/Text-Hyphen).
+This code is hosted on Github, please see [https://github.com/kappa/Text-Hyphen](https://github.com/kappa/Text-Hyphen).
 
 Please report any bugs or feature requests to GitHub issues.
 
