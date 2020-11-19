@@ -584,7 +584,7 @@ Alexander Lebedev for all his valuable work on russian ispell
 dictionaries and russian hyphenation patterns. See his archive
 at L<ftp://scon155.phys.msu.ru/pub/russian/>.
 
-Mark-Jason Dominus and Jan Pazdziora for L<Text::Hyphenate> and L<TeX::Hyphenate>
+Mark-Jason Dominus and Jan Pazdziora for L<Text::Hyphenate> and L<TeX::Hyphen>
 modules on CPAN.
 
 Ned Batchelder for his public domain Python implementation of
